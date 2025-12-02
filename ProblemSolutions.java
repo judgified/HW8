@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   ADD YOUR NAME / SECTION NUMBER HERE
+ *   Alena Eshaya / 002
  *
  *   This java file contains the problem solutions of canFinish and
  *   numGroups methods.
@@ -81,11 +81,41 @@ class ProblemSolutions {
         ArrayList<Integer>[] adj = getAdjList(numExams, 
                                         prerequisites); 
 
-        // ADD YOUR CODE HERE - ADD YOUR NAME / SECTION AT TOP OF FILE
-        return false;
+        int[] state = new int[numNodes];
+
+
+            for( int i = 0; i < numNodes; i++){
+                if (state[i] == 0){
+                    if (hasCycleDFS(i, adj, state)){
+                        return false;
+
+                    }
+                }
+            }
+
+        return true;
 
     }
 
+
+    //helper
+    private boolean hasCycleDFS(int node, ArrayList<Integer>[] adj, int[] state){
+        state[node] = 1;
+
+        for( int neighbor : adj[node]) {
+            if(state[neighbor] == 1){
+                return true;
+
+            }
+            if(state[neighbor] == 0){
+                if (hasCycleDFS(neighbor, adj, state)){
+                    return true;
+                }
+            }
+        }
+        state[node] = 2;
+        return false;
+    }
 
     /**
      * Method getAdjList
@@ -189,10 +219,36 @@ class ProblemSolutions {
                 }
             }
         }
+            boolean[] visited = new boolean[numNodes];
+            int groupCount = 0;
 
-        // YOUR CODE GOES HERE - you can add helper methods, you do not need
-        // to put all code in this method.
-        return -1;
+
+            for (int node = 0; node < numNodes; node++){
+                if(!visited[node]) {
+                    dfsVisit( node, graph, visited);
+                    groupCount++;
+
+            
+                }
+            }
+            return groupCount;
+
+    
+    }
+
+    //helper method 
+    private void dfsVisit(int node, Map<Integer, List<Integer>> graph, boolean[] visited){
+       visited[node] = true;
+
+        if( graph. containsKey(node)) {
+            for (int neighbor : graph.get(node)){
+                if(!visited[neighbor]){
+                    dfsVisit(neighbor, graph, visited);
+                }
+            }
     }
 
 }
+}
+
+

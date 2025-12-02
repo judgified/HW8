@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Alena Eshaya / 002
  *
  *   Note, additional comments provided throughout this source code
  *   is for educational purposes
@@ -104,7 +104,31 @@ public class Graph {
   
   public int findRoot() {
 
-    // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME/SECTION AT TOP OF FILE
+    boolean[] hasIncomingEdge = new boolean[numVertices];
+
+    for (int i = 0; i< numVertices; i++){
+      for( Integer dest : adjListArr[i]){
+        hasIncomingEdge[dest] = true;
+
+      }
+    }
+
+    int rootVertex =-1;
+    int rootCount = 0;
+
+    for(int i = 0; i<numVertices; i++){
+      if(!hasIncomingEdge[i]){
+        rootVertex = i;
+        rootCount++;
+      }
+    }
+
+    if(rootCount == 1){
+      return vertexValues.get(rootVertex);
+
+    } else {
+
     return -1;
   } 
+}
 }
